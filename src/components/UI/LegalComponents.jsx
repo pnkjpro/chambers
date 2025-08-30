@@ -15,13 +15,13 @@ export const LegalInput = ({
 }) => (
   <div className="space-y-2">
     {label && (
-      <label className="block text-sm font-semibold text-slate-700">
+      <label className="block text-left text-sm font-semibold text-slate-700">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
     )}
     <div className="relative group">
       {Icon && (
-        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-navy-500 transition-colors duration-200">
+        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200">
           <Icon className="h-5 w-5" />
         </div>
       )}
@@ -30,7 +30,7 @@ export const LegalInput = ({
         name={name}
         placeholder={placeholder}
         required={required}
-        className={`w-full ${Icon ? 'pl-12' : 'pl-4'} pr-4 py-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-navy-500 focus:border-navy-500 transition-all duration-300 text-slate-800 placeholder-slate-400 shadow-sm hover:shadow-md focus:shadow-lg ${className}`}
+        className={`w-full ${Icon ? 'pl-12' : 'pl-4'} pr-4 py-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-slate-800 placeholder-slate-400 shadow-sm hover:shadow-md focus:shadow-lg ${className}`}
         {...props}
       />
     </div>
@@ -248,14 +248,14 @@ export const SocialButton = ({ provider = 'google', onClick, loading, className 
     <button
       onClick={onClick}
       disabled={loading}
-      className={`w-full flex items-center justify-center space-x-3 px-6 py-3 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 transition-all duration-200 hover:shadow-md focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      className={`w-full flex items-center justify-center space-x-3 px-6 py-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-slate-50 text-slate-700 transition-all duration-200 hover:shadow-lg hover:border-slate-400 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed shadow-md ${className}`}
     >
       {loading ? (
         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current"></div>
       ) : (
         <>
           <FontAwesomeIcon icon={faGoogle} className="h-5 w-5 text-red-500" />
-          <span className="font-medium">Continue with Google</span>
+          <span className="font-semibold">Continue with Google</span>
         </>
       )}
     </button>

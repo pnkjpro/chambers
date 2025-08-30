@@ -74,13 +74,6 @@ const Login = () => {
           <ScaleIcon className="h-8 w-8 text-blue-600 group-hover:scale-105 transition-transform duration-300" />
           <span className="text-2xl font-bold text-slate-800">MeraBakil</span>
         </Link>
-        
-        <Link 
-          to="/register"
-          className="text-slate-600 hover:text-blue-600 font-medium transition-colors duration-300"
-        >
-          Don't have an account? <span className="text-blue-600 font-semibold">Sign Up</span>
-        </Link>
       </div>
 
       <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-120px)] p-6">
@@ -174,6 +167,19 @@ const Login = () => {
                 className="w-full"
               />
             </div>
+          </div>
+
+          {/* Sign Up Link - moved below social login */}
+          <div className="mt-8 text-center">
+            <p className="text-slate-600">
+              Don't have an account?{' '}
+              <Link 
+                to="/register"
+                className="text-blue-600 hover:text-blue-500 font-semibold transition-colors duration-300"
+              >
+                Sign Up
+              </Link>
+            </p>
           </div>
         </LegalCard>
       </div>

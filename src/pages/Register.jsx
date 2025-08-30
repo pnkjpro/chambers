@@ -22,18 +22,12 @@ const Register = () => {
   const { register, loginWithGoogle } = useAuthStore();
   
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
+    mobile: '',
     password: '',
     confirmPassword: '',
-    phone: '',
-    address: '',
-    profileType: 'personal',
-    specialization: '',
-    licenseNumber: '',
-    firmName: '',
-    experience: ''
+    profileType: 'individual'
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -101,13 +95,6 @@ const Register = () => {
           <ScaleIcon className="h-8 w-8 text-blue-600 group-hover:scale-105 transition-transform duration-300" />
           <span className="text-2xl font-bold text-slate-800">MeraBakil</span>
         </Link>
-        
-        <Link 
-          to="/login"
-          className="text-slate-600 hover:text-blue-600 font-medium transition-colors duration-300"
-        >
-          Already have an account? <span className="text-blue-600 font-semibold">Sign In</span>
-        </Link>
       </div>
 
       <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-120px)] p-6">
@@ -124,29 +111,29 @@ const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Profile Type Selection */}
             <div className="mb-6">
-              <label className="block text-sm font-semibold text-slate-700 mb-3">Profile Type</label>
+              <label className="block text-left text-sm font-semibold text-slate-700 mb-3">Account Type</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <label className="relative cursor-pointer">
                   <input
                     type="radio"
                     name="profileType"
-                    value="personal"
-                    checked={formData.profileType === 'personal'}
+                    value="individual"
+                    checked={formData.profileType === 'individual'}
                     onChange={handleChange}
                     className="sr-only"
                   />
                   <div className={`p-4 rounded-xl border-2 transition-all duration-300 ${
-                    formData.profileType === 'personal'
+                    formData.profileType === 'individual'
                       ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100 shadow-md'
                       : 'border-slate-200 bg-white hover:border-slate-300'
                   }`}>
                     <div className="flex items-center space-x-3">
-                      <UserIcon className={`h-6 w-6 ${formData.profileType === 'personal' ? 'text-blue-600' : 'text-slate-400'}`} />
+                      <UserIcon className={`h-6 w-6 ${formData.profileType === 'individual' ? 'text-blue-600' : 'text-slate-400'}`} />
                       <div>
-                        <div className={`font-semibold ${formData.profileType === 'personal' ? 'text-blue-800' : 'text-slate-700'}`}>
-                          Personal Lawyer
+                        <div className={`font-semibold ${formData.profileType === 'individual' ? 'text-blue-800' : 'text-slate-700'}`}>
+                          Individual Account
                         </div>
-                        <div className="text-sm text-slate-500">Individual practice</div>
+                        <div className="text-sm text-slate-500">Personal use</div>
                       </div>
                     </div>
                   </div>
@@ -156,23 +143,23 @@ const Register = () => {
                   <input
                     type="radio"
                     name="profileType"
-                    value="business"
-                    checked={formData.profileType === 'business'}
+                    value="lawyer"
+                    checked={formData.profileType === 'lawyer'}
                     onChange={handleChange}
                     className="sr-only"
                   />
                   <div className={`p-4 rounded-xl border-2 transition-all duration-300 ${
-                    formData.profileType === 'business'
+                    formData.profileType === 'lawyer'
                       ? 'border-indigo-500 bg-gradient-to-br from-indigo-50 to-indigo-100 shadow-md'
                       : 'border-slate-200 bg-white hover:border-slate-300'
                   }`}>
                     <div className="flex items-center space-x-3">
-                      <BuildingOffice2Icon className={`h-6 w-6 ${formData.profileType === 'business' ? 'text-indigo-600' : 'text-slate-400'}`} />
+                      <BuildingOffice2Icon className={`h-6 w-6 ${formData.profileType === 'lawyer' ? 'text-indigo-600' : 'text-slate-400'}`} />
                       <div>
-                        <div className={`font-semibold ${formData.profileType === 'business' ? 'text-indigo-800' : 'text-slate-700'}`}>
-                          Business Lawyer
+                        <div className={`font-semibold ${formData.profileType === 'lawyer' ? 'text-indigo-800' : 'text-slate-700'}`}>
+                          Lawyer Account
                         </div>
-                        <div className="text-sm text-slate-500">Corporate practice</div>
+                        <div className="text-sm text-slate-500">Professional practice</div>
                       </div>
                     </div>
                   </div>
@@ -181,29 +168,16 @@ const Register = () => {
             </div>
 
             {/* Basic Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <LegalInput
-                label="First Name"
-                name="firstName"
-                type="text"
-                icon={UserIcon}
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-                placeholder="Enter your first name"
-              />
-
-              <LegalInput
-                label="Last Name"
-                name="lastName"
-                type="text"
-                icon={UserIcon}
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-                placeholder="Enter your last name"
-              />
-            </div>
+            <LegalInput
+              label="Full Name"
+              name="name"
+              type="text"
+              icon={UserIcon}
+              value={formData.name}
+              onChange={handleChange}
+              required
+              placeholder="Enter your full name"
+            />
 
             <LegalInput
               label="Email Address"
@@ -217,25 +191,14 @@ const Register = () => {
             />
 
             <LegalInput
-              label="Phone Number"
-              name="phone"
+              label="Mobile Number"
+              name="mobile"
               type="tel"
               icon={PhoneIcon}
-              value={formData.phone}
+              value={formData.mobile}
               onChange={handleChange}
               required
-              placeholder="Enter your phone number"
-            />
-
-            <LegalInput
-              label="Address"
-              name="address"
-              type="text"
-              icon={MapPinIcon}
-              value={formData.address}
-              onChange={handleChange}
-              required
-              placeholder="Enter your address"
+              placeholder="Enter your mobile number"
             />
 
             {/* Password Fields */}
@@ -281,59 +244,6 @@ const Register = () => {
                 </button>
               </div>
             </div>
-
-            {/* Professional Details */}
-            {formData.profileType === 'business' && (
-              <div className="space-y-6 p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl border border-indigo-200">
-                <h3 className="text-lg font-semibold text-indigo-800 flex items-center">
-                  <BuildingOffice2Icon className="h-5 w-5 mr-2" />
-                  Business Information
-                </h3>
-                
-                <LegalInput
-                  label="Firm Name"
-                  name="firmName"
-                  type="text"
-                  value={formData.firmName}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter your firm name"
-                />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <LegalInput
-                    label="Specialization"
-                    name="specialization"
-                    type="text"
-                    value={formData.specialization}
-                    onChange={handleChange}
-                    required
-                    placeholder="e.g., Corporate Law"
-                  />
-
-                  <LegalInput
-                    label="Years of Experience"
-                    name="experience"
-                    type="number"
-                    value={formData.experience}
-                    onChange={handleChange}
-                    required
-                    placeholder="Years practicing"
-                    min="0"
-                  />
-                </div>
-
-                <LegalInput
-                  label="License Number"
-                  name="licenseNumber"
-                  type="text"
-                  value={formData.licenseNumber}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter your bar license number"
-                />
-              </div>
-            )}
 
             {formData.profileType === 'personal' && (
               <div className="space-y-6 p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
@@ -410,9 +320,22 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Footer */}
+          {/* Sign In Link - moved below social login */}
           <div className="mt-8 text-center">
             <p className="text-slate-600">
+              Already have an account?{' '}
+              <Link 
+                to="/login"
+                className="text-blue-600 hover:text-blue-500 font-semibold transition-colors duration-300"
+              >
+                Sign In
+              </Link>
+            </p>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-slate-500">
               By creating an account, you agree to our{' '}
               <Link to="/terms" className="text-blue-600 hover:text-blue-500 font-medium">
                 Terms of Service
