@@ -14,6 +14,7 @@ export const useAuthStore = create(
       token: null,
       verifyEmail: '',
       verificationLabel: '',
+      profileType: 'personal', // 'personal' or 'business'
 
       // Actions
       setLoading: (loading) => set({ loading }),
@@ -21,6 +22,7 @@ export const useAuthStore = create(
       setError: (error) => set({ error }),
       setVerifyEmail: (email) => set({ verifyEmail: email }),
       setVerificationLabel: (label) => set({ verificationLabel: label }),
+      setProfileType: (type) => set({ profileType: type }),
       
       setToken: (token) => {
         set({ token });
@@ -37,7 +39,8 @@ export const useAuthStore = create(
           token: null, 
           error: null, 
           verifyEmail: '', 
-          verificationLabel: '' 
+          verificationLabel: '',
+          profileType: 'personal'
         });
         localStorage.removeItem('authToken');
       },
@@ -60,14 +63,21 @@ export const useAuthStore = create(
         setLoading(false);
       },
 
-      // Register function
+      // Register function (updated for profile types)
       register: async (userData) => {
-        const { setLoading, setVerifyEmail, setVerificationLabel } = get();
+        const { setLoading, setVerifyEmail, setVerificationLabel, setProfileType } = get();
         setLoading(true);
         try {
-          const response = await api.post('/users/create', userData);
+          // Add profile type to userData
+          const registrationData = {
+            ...userData,
+            profile_type: userData.profile_type || 'personal'
+          };
+          
+          const response = await api.post('/users/create', registrationData);
           setVerifyEmail(response.data.data.email);
           setVerificationLabel('verify_email');
+          setProfileType(userData.profile_type || 'personal');
           setLoading(false);
           return {
             success: response.data.success,
@@ -77,6 +87,60 @@ export const useAuthStore = create(
           setLoading(false);
           console.error("Error registering user:", error);
           const errorMessage = error.response?.data?.message || "An unexpected error occurred";
+          return { success: false, message: errorMessage };
+        }
+      },
+
+      // Register Business Lawyer
+      registerBusinessLawyer: async (userData) => {
+        const { setLoading, setVerifyEmail, setVerificationLabel, setProfileType } = get();
+        setLoading(true);
+        try {
+          const businessData = {
+            ...userData,
+            profile_type: 'business',
+            // Business-specific fields
+            law_firm_name: userData.law_firm_name,
+            license_number: userData.license_number,
+            practice_areas: userData.practice_areas,
+            years_of_experience: userData.years_of_experience,
+            bar_association: userData.bar_association,
+          };
+          
+          const response = await api.post('/users/create', businessData);
+          setVerifyEmail(response.data.data.email);
+          setVerificationLabel('verify_email');
+          setProfileType('business');
+          setLoading(false);
+          return {
+            success: response.data.success,
+            message: response.data.message
+          };
+        } catch (error) {
+          setLoading(false);
+          console.error("Error registering business lawyer:", error);
+          const errorMessage = error.response?.data?.message || "An unexpected error occurred";
+          return { success: false, message: errorMessage };
+        }
+      },
+
+      // Forgot Password - Send reset email
+      forgotPassword: async (email) => {
+        const { setLoading, setVerifyEmail, setVerificationLabel } = get();
+        setLoading(true);
+        try {
+          const response = await api.post('/users/password/forgot', { email });
+          setVerifyEmail(email);
+          setVerificationLabel('reset_password');
+          setLoading(false);
+          return {
+            success: response.data.success,
+            message: response.data.message
+          };
+        } catch (error) {
+          setLoading(false);
+          console.error("Error sending reset email:", error);
+          const errorMessage = error.response?.data?.message || "Error sending reset email";
           return { success: false, message: errorMessage };
         }
       },
