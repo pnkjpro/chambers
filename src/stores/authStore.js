@@ -302,6 +302,87 @@ export const useAuthStore = create(
           return { success: false, message: errorMessage };
         }
       },
+
+      // Social Login - Google
+      loginWithGoogle: async () => {
+        const { setLoading } = get();
+        try {
+          setLoading(true);
+          // Redirect to backend Google OAuth endpoint
+          window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
+          setLoading(false);
+        } catch (error) {
+          setLoading(false);
+          console.error("Error with Google login:", error);
+          return { success: false, message: "Google login failed" };
+        }
+      },
+
+      // Social Login - LinkedIn
+      loginWithLinkedIn: async () => {
+        const { setLoading } = get();
+        try {
+          setLoading(true);
+          // Redirect to backend LinkedIn OAuth endpoint
+          window.location.href = `${import.meta.env.VITE_API_URL}/auth/linkedin`;
+          setLoading(false);
+        } catch (error) {
+          setLoading(false);
+          console.error("Error with LinkedIn login:", error);
+          return { success: false, message: "LinkedIn login failed" };
+        }
+      },
+
+      // Social Login - Microsoft
+      loginWithMicrosoft: async () => {
+        const { setLoading } = get();
+        try {
+          setLoading(true);
+          // Redirect to backend Microsoft OAuth endpoint
+          window.location.href = `${import.meta.env.VITE_API_URL}/auth/microsoft`;
+          setLoading(false);
+        } catch (error) {
+          setLoading(false);
+          console.error("Error with Microsoft login:", error);
+          return { success: false, message: "Microsoft login failed" };
+        }
+      },
+
+      // Handle OAuth callback
+      handleOAuthCallback: async (provider, code, state) => {
+        const { setLoading, setUser, setToken } = get();
+        try {
+          setLoading(true);
+          const response = await api.post(`/auth/${provider}/callback`, {
+            code,
+            state
+          });
+          
+          if (response.data.success) {
+            setUser(response.data.data.user);
+            setToken(response.data.data.token);
+            setLoading(false);
+            return {
+              success: true,
+              message: 'Login successful',
+              user: response.data.data.user
+            };
+          }
+          
+          setLoading(false);
+          return {
+            success: false,
+            message: response.data.message || 'OAuth login failed'
+          };
+        } catch (error) {
+          setLoading(false);
+          console.error(`Error with ${provider} OAuth callback:`, error);
+          return {
+            success: false,
+            message: error.response?.data?.message || `${provider} login failed`
+          };
+        }
+      },
     }),
     {
       name: 'auth-storage', // unique name for localStorage key
