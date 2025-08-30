@@ -7,8 +7,8 @@ import {
   ShieldCheckIcon, 
   LockClosedIcon 
 } from '@heroicons/react/24/outline';
-import { useAuthStore } from '../stores/authStore';
-import { LegalInput, LegalButton, LegalCard, LegalAlert } from '../components/UI/LegalComponents';
+import { useAuthStore } from '../../stores/authStore';
+import { LegalInput, LegalButton, LegalCard, LegalAlert } from '../../components/UI/LegalComponents';
 import { toast } from 'react-toastify';
 
 const ResetPassword = () => {

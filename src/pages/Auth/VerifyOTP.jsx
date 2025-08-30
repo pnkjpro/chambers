@@ -4,8 +4,8 @@ import {
   ScaleIcon, 
   ShieldCheckIcon 
 } from '@heroicons/react/24/outline';
-import { useAuthStore } from '../stores/authStore';
-import { LegalButton, LegalCard, LegalAlert } from '../components/UI/LegalComponents';
+import { useAuthStore } from '../../stores/authStore';
+import { LegalButton, LegalCard, LegalAlert } from '../../components/UI/LegalComponents';
 import { toast } from 'react-toastify';
 
 const VerifyOTP = () => {

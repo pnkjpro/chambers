@@ -8,9 +8,9 @@ import {
   EnvelopeIcon, 
   LockClosedIcon 
 } from '@heroicons/react/24/outline';
-import { useAuthStore } from '../stores/authStore';
+import { useAuthStore } from '../../stores/authStore';
 import { toast } from 'react-toastify';
-import { LegalInput, LegalButton, LegalCard, SocialButton } from '../components/UI/LegalComponents';
+import { LegalInput, LegalButton, LegalCard, SocialButton } from '../../components/UI/LegalComponents';
 
 const Login = () => {
   const navigate = useNavigate();

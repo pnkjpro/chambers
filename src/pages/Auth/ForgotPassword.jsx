@@ -5,9 +5,9 @@ import {
   ShieldCheckIcon, 
   EnvelopeIcon 
 } from '@heroicons/react/24/outline';
-import { useAuthStore } from '../stores/authStore';
+import { useAuthStore } from '../../stores/authStore';
 import { toast } from 'react-toastify';
-import { LegalInput, LegalButton, LegalCard, LegalAlert } from '../components/UI/LegalComponents';
+import { LegalInput, LegalButton, LegalCard, LegalAlert } from '../../components/UI/LegalComponents';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -134,17 +134,6 @@ const ForgotPassword = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 relative">
-      {/* Clean, minimal background */}
-      <div className="absolute inset-0 bg-white/50"></div>
-
-      {/* Navigation Header */}
-      <div className="relative z-10 p-6 flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-3 group">
-          <ScaleIcon className="h-8 w-8 text-blue-600 group-hover:scale-105 transition-transform duration-300" />
-          <span className="text-2xl font-bold text-slate-800">MeraBakil</span>
-        </Link>
-      </div>
-
       <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-120px)] p-6">
         <LegalCard className="w-full max-w-md p-8 animate-fade-in">
           {/* Header */}
